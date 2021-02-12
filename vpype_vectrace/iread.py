@@ -24,11 +24,10 @@ def iread(document: vp.Document, input_file: str, color, distance: float):
         if image.mode != 'L':
             image = image.convert('L')
         image = image.point(lambda e: int(e > 127) * 255)
+        lc = vp.LineCollection()
+        document.add(lc)
         for points in _vectrace(image.load(), width, height):
-            lc = vp.LineCollection([(points[i - 1],
-                                     points[i])
-                                    for i in range(1, len(points))])
-            document.add(lc)
+            lc.append(points)
         return document
 
     distance_sq = distance * distance
@@ -55,11 +54,10 @@ def iread(document: vp.Document, input_file: str, color, distance: float):
                     new_data[x, y] = (255, 255, 255, 0)
                     v_data[x, y] = 0
 
+        lc = vp.LineCollection()
+        document.add(lc)
         for points in _vectrace(v_data, width, height):
-            lc = vp.LineCollection([(points[i - 1],
-                                     points[i])
-                                    for i in range(1, len(points))])
-            document.add(lc)
+            lc.append(points)
     return document
 
 
