@@ -1,14 +1,17 @@
+import pathlib
+
 import click
 import vpype as vp
+import vpype_cli
 from svgelements import Color
 from PIL import Image
 
 
 @click.command()
-@click.argument("input_file", type=str)
+@click.argument("input_file", type=vpype_cli.PathType(exists=True, dir_okay=False))
 @click.option("-c", "--color", multiple=True, type=Color, help="Color to extract")
 @click.option("-d", "--distance", default=50.0, type=float, help="Color distance max=765")
-@vp.global_processor
+@vpype_cli.global_processor
 def iread(document: vp.Document, input_file: str, color, distance: float):
     """
     Image Read and Vectorization.
@@ -18,6 +21,11 @@ def iread(document: vp.Document, input_file: str, color, distance: float):
     does black v. white. However, multiple colors can be specified along with
     a color distance and those colors will be extracted and traced.
     """
+
+    # populate the vp_source[s] properties
+    document.set_property(vp.METADATA_FIELD_SOURCE, pathlib.Path(input_file).absolute())
+    document.add_to_sources(input_file)
+
     image = Image.open(input_file)
     width, height = image.size
     if len(color) == 0:
