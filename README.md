@@ -15,8 +15,18 @@ This is especially useful because vpype does not need a bunch of preprocessing. 
 
 
 # Installing
-`$ pip install vpype-vectrace`
 
+pipx-based *vpype* install:
+
+```
+$ pipx inject vpype vpype-vectrace
+```
+
+Global or venv-based *vpype* install:
+
+```
+$ pip install vpype-vectrace
+```
 
 # Supported Formats.
 
