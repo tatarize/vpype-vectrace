@@ -23,7 +23,6 @@ def iread(document: vp.Document, input_file: str, color, distance: float):
     """
 
     # populate the vp_source[s] properties
-    document.set_property(vp.METADATA_FIELD_SOURCE, pathlib.Path(input_file).absolute())
     document.add_to_sources(input_file)
 
     image = Image.open(input_file)
@@ -33,9 +32,9 @@ def iread(document: vp.Document, input_file: str, color, distance: float):
             image = image.convert('L')
         image = image.point(lambda e: int(e > 127) * 255)
         lc = vp.LineCollection()
-        document.add(lc)
         for points in _vectrace(image.load(), width, height):
             lc.append(points)
+        document.add(lc)
         return document
 
     distance_sq = distance * distance
@@ -63,9 +62,9 @@ def iread(document: vp.Document, input_file: str, color, distance: float):
                     v_data[x, y] = 0
 
         lc = vp.LineCollection()
-        document.add(lc)
         for points in _vectrace(v_data, width, height):
             lc.append(points)
+        document.add(lc)
     return document
 
 
