@@ -6,7 +6,7 @@ with open("README.md") as f:
 
 setup(
     name="vpype-vectrace",
-    version="0.1.1",
+    version="0.1.2",
     description="vpype polygon tracer plugin",
     long_description=readme,
     long_description_content_type="text/markdown",

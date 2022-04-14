@@ -1,5 +1,3 @@
-import pathlib
-
 import click
 import vpype as vp
 import vpype_cli
