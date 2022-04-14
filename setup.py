@@ -25,7 +25,7 @@ setup(
     ],
     install_requires=[
         "click",
-        "vpype>=1.9,<2.0",
+        "vpype>=1.10,<2.0",
         "Pillow",
         "svgelements",
     ],
